@@ -1,0 +1,15 @@
+.Profile {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 10%;
+    width: 200px;
+}
+
+.Profile > img {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 3rem;
+}

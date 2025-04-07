@@ -1,0 +1,82 @@
+.LinkButtom {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: transform 250ms ease-in-out;
+    color: white;
+    border-radius: 3px;
+  }
+  
+  /* Capa arcoíris animada */
+  .LinkButtom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      #ff0000fd,
+      #ff9900,
+      #ffff00,
+      #33ff00,
+      #00ffff,
+      #3300ff,
+      #ff00ff,
+      #ff0000
+    );
+    background-size: 200% 100%;
+    animation: rgbAlive 6s ease-in-out infinite alternate;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  /* Al hacer hover se activa el brillo y color */
+  .LinkButtom:hover::before {
+    opacity: 1;
+    
+  }
+  
+  .LinkButtom:hover {
+    transform: scale(1.05);
+    color: #fff;
+    
+  }
+  
+  /* Asegura que el contenido esté encima */
+  .LinkButtom * {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Animación arcoíris constante (solo hacia un lado) */
+  @keyframes rgbAlive {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: -100% 0%;
+    }
+  }
+  
+  
+.LinkButtom > a{
+    color: white;
+    font-size: 2rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+
+.LinkButtom__icon{
+    margin-right: 5px;
+}
