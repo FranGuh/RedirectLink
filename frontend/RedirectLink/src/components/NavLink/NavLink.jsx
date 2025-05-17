@@ -79,6 +79,18 @@ const NavLink = () => {
                 </div>
               </div>
 
+
+              <div className="LinkDivContainer__img">
+                <img src="/images/ContainerGrid/ComputerSelectorHelper/Landing.png" alt="" />
+                <div className='LinkDivHeader'>
+                <LinkButtom
+                  Icon={Store}
+                  text="C.S.Help"
+                  href="https://computer-selector-helper.vercel.app/"
+                />
+                </div>
+              </div>
+
               <div className="LinkDivContainer__img">
                 <img src="/images/ContainerGrid/RedirectLink/Landing.png" alt="" />
                 <div className='LinkDivHeader'>
@@ -95,6 +107,12 @@ const NavLink = () => {
             </div>
           </Modal>
         </div>
+
+        <LinkButtom
+                  Icon={Store}
+                  text="C.S.Help"
+                  href="https://computer-selector-helper.vercel.app/"
+                />
         <LinkButtom
           Icon={Camera}
           text="Memories"
