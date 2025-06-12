@@ -130,8 +130,8 @@ const NavLink = () => {
         />
         <LinkButtom
           Icon={FileUser}
-          text="CV"
-          href="https://i1.sndcdn.com/artworks-CHUebWaaq6jdZi6t-plgC5A-t500x500.jpg"
+          text="Portfolio"
+          href="https://portfolio-fran-six.vercel.app/"
         />
         <LinkButtom
           Icon={Instagram}
