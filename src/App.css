@@ -1,18 +1,18 @@
 :root{
-  display: flex;
   width: 100vw;
   height: auto;
-  align-items: center;
-  justify-content: center;
   scroll-padding-right: 20px;
   scrollbar-color: rgba(0, 255, 136, 0.247) #222;
   scrollbar-width: thin;
-  /* font-family: "Doto", sans-serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "ROND" 0; */
   font-family: "Space Grotesk", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.app-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 * {

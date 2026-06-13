@@ -1,0 +1,87 @@
+{
+  "profile": {
+    "name": "Gustavo Francisco",
+    "username": "@FranGuh",
+    "photo": "/images/user/Profilepic.png",
+    "photoAlt": "Foto de perfil de Gustavo Francisco",
+    "description": "Soy Gustavo Francisco, Programador Web en React.",
+    "highlights": ["Programador Web", "React"]
+  },
+  "about": {
+    "title": "Soy Gustavo Francisco",
+    "paragraphs": [
+      "Estudiante avanzado de Ingeniería en Sistemas Computacionales con experiencia en <b>desarrollo web fullstack, bases de datos y despliegue en la nube.</b>",
+      "Me especializo en <b>construir soluciones reales</b> que integran frontend en React, APIs RESTful, almacenamiento en la nube (AWS, Firebase) y bases de datos escalables como MongoDB Atlas y DynamoDB.",
+      "He creado herramientas personales como un <b>clon de Linktree</b> y una app web llamada <b>Memories</b>, con integración de login por Google, manejo de sesiones seguras con JWT, consumo de Google Photos API y personalización por usuario. También desarrollé un chatbot usando Grok, y una app de inventario para mi negocio familiar, usando tecnologías serverless en AWS.",
+      "Me apasiona aprender con el apoyo de la inteligencia artificial, pero siempre aplico y adapto el conocimiento con lógica propia. <b>Busco oportunidades como desarrollador junior o freelance</b>, donde pueda aportar soluciones funcionales, escalar productos reales y seguir aprendiendo en equipo."
+    ]
+  },
+  "projects": [
+    {
+      "name": "Memories",
+      "icon": "Camera",
+      "href": "https://memories-app-red.vercel.app/",
+      "image": "/images/ContainerGrid/Memories/Landing.png",
+      "imageAlt": "Captura de pantalla de Memories App - aplicación web para gestionar recuerdos"
+    },
+    {
+      "name": "Cacao",
+      "icon": "Store",
+      "href": "https://cacaococoa-dev.s3-website-us-east-1.amazonaws.com/",
+      "image": "/images/ContainerGrid/Cacao/Products.png",
+      "imageAlt": "Captura de pantalla de Cacao - tienda de productos de cacao"
+    },
+    {
+      "name": "C.S.Help",
+      "icon": "Store",
+      "href": "https://computer-selector-helper.vercel.app/",
+      "image": "/images/ContainerGrid/ComputerSelectorHelper/Landing.png",
+      "imageAlt": "Captura de pantalla de Computer Selector Helper - herramienta para seleccionar computadoras"
+    },
+    {
+      "name": "RedirectLink",
+      "icon": "Store",
+      "href": "",
+      "image": "/images/ContainerGrid/RedirectLink/Landing.png",
+      "imageAlt": "Captura de pantalla de RedirectLink - clon de Linktree para enlaces personales"
+    }
+  ],
+  "links": [
+    {
+      "name": "Sobre Mí",
+      "icon": "BookIcon",
+      "href": "#",
+      "action": "openModal"
+    },
+    {
+      "name": "C.S.Help",
+      "icon": "Store",
+      "href": "https://computer-selector-helper.vercel.app/"
+    },
+    {
+      "name": "Memories",
+      "icon": "Camera",
+      "href": "https://memories-app-red.vercel.app/"
+    },
+    {
+      "name": "LinkedIn",
+      "icon": "Linkedin",
+      "href": "https://www.linkedin.com/in/gustavo-francisco-salgado-andrade-496553337/"
+    },
+    {
+      "name": "Github",
+      "icon": "GithubIcon",
+      "href": "https://github.com/FranGuh"
+    },
+    {
+      "name": "Portfolio",
+      "icon": "FileUser",
+      "href": "https://portfolio-fran-six.vercel.app/"
+    },
+    {
+      "name": "Instagram",
+      "icon": "Instagram",
+      "href": "https://www.instagram.com/saland_gus"
+    }
+  ]
+}

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import './App.css'
 import NavLink from './components/NavLink/NavLink'
 import ImgContainer from './components/ImgContainer/ImgContainer'
@@ -7,19 +5,17 @@ import { Analytics } from "@vercel/analytics/react"
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
+    <div className="app-root">
     <Analytics />
     <section className='background__content'>
-      <ImgContainer src="/images/user/fondo2.jpg" />
+      <ImgContainer src="/images/user/fondo2.jpg" alt="Fondo decorativo de perfil de Gustavo Francisco" />
     </section>
 
     <main className='main__content'>
       <NavLink />
     </main>
-    </>
+    </div>
   )
 }
 
