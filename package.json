@@ -1,0 +1,22 @@
+{
+  "name": "redirectlink",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^8.1.2",
+    "@iconify-json/lucide": "^1.2.111",
+    "@iconify-json/simple-icons": "^1.2.86",
+    "@lucide/svelte": "^1.17.0",
+    "@vercel/analytics": "^2.0.1",
+    "astro": "^6.4.6",
+    "astro-icon": "^1.1.5",
+    "svelte": "^5.56.3"
+  }
+}

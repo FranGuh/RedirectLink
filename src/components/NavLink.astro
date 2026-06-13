@@ -1,0 +1,42 @@
+---
+import Profile from './Profile.astro';
+import LinkButton from './LinkButton.astro';
+import Modal from './Modal.svelte';
+import linksData from '../data/links.json';
+
+const { profile, about, projects, links } = linksData;
+
+// Resolve the modal trigger by its action, not by array index. The old code
+// relied on `links[0]` being the modal — that positional coupling is one of
+// the bugs being fixed.
+const modalLink = links.find((l) => l.action === 'openModal');
+const plainLinks = links.filter((l) => l.action !== 'openModal');
+---
+
+<Profile
+  src={profile.photo}
+  alt={profile.photoAlt}
+  user={profile.username}
+  description={profile.description}
+  highlights={profile.highlights}
+/>
+
+<nav class="Nav__link">
+  {
+    modalLink && (
+      <Modal
+        client:load
+        triggerText={modalLink.name}
+        triggerIcon={modalLink.icon}
+        about={about}
+        projects={projects}
+      />
+    )
+  }
+
+  {
+    plainLinks.map((link) => (
+      <LinkButton text={link.name} icon={link.icon} href={link.href} />
+    ))
+  }
+</nav>

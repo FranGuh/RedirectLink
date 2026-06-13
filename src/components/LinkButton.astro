@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  text: string;
+  icon: string;
+  href: string;
+}
+
+const { text, icon, href } = Astro.props;
+
+// Internal routes (href starting with "/") open in the same tab — no
+// target/rel. External links keep target="_blank" + rel for safety.
+const isInternal = href.startsWith('/');
+---
+
+<div class="LinkButton">
+  <a
+    href={href}
+    target={isInternal ? undefined : '_blank'}
+    rel={isInternal ? undefined : 'noopener noreferrer'}
+  >
+    <Icon name={icon} class="LinkButton__icon" />
+    {text}
+  </a>
+</div>
