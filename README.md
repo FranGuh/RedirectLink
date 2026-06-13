@@ -1,12 +1,41 @@
-# React + Vite
+# RedirectLink
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal linktree for **Gustavo Francisco** — a single-page hub linking to his
+projects, portfolio, social profiles, and contact, with an "About me" modal
+that showcases featured projects.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Astro 6](https://astro.build/) — static output, ships near-zero JavaScript.
+- [Svelte 5](https://svelte.dev/) — one interactive island (the modal).
+- [astro-icon](https://github.com/natemoo-re/astro-icon) + `@iconify-json/lucide`
+  for icons in Astro components; [`@lucide/svelte`](https://lucide.dev/) for
+  icons inside the island.
+- [@vercel/analytics](https://vercel.com/analytics) via the official Astro
+  integration.
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+pnpm install
+pnpm dev      # start the dev server
+pnpm build    # build the static site into dist/
+pnpm preview  # preview the production build locally
+```
+
+## Content
+
+All content (profile, about text, links, and projects) lives in a single file:
+
+```
+src/data/links.json
+```
+
+Edit that file to update links, projects, or the about section. Icons use
+Iconify Lucide slugs (e.g. `lucide:github`).
+
+## Deployment
+
+Deployed on [Vercel](https://vercel.com/) as a static site. Astro builds to
+`dist/` with zero additional configuration; security headers and asset caching
+are defined in `vercel.json`.

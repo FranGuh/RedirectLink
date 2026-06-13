@@ -1,0 +1,28 @@
+---
+import { highlightSegments } from '../utils/highlightText.js';
+
+interface Props {
+  src: string;
+  alt: string;
+  user: string;
+  description?: string;
+  highlights?: string[];
+}
+
+const { src, alt, user, description, highlights = [] } = Astro.props;
+const segments = description ? highlightSegments(description, highlights) : [];
+---
+
+{
+  description && (
+    <div class="Profile">
+      <img src={src} alt={alt} />
+      <h2>{user}</h2>
+      <p>
+        {segments.map((s) =>
+          s.highlight ? <strong class="highlight">{s.text}</strong> : s.text
+        )}
+      </p>
+    </div>
+  )
+}

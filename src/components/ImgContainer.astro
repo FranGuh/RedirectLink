@@ -1,0 +1,15 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<img
+  class="ImgContainer"
+  src={src}
+  alt={alt || 'Imagen de fondo decorativa'}
+  loading="eager"
+/>

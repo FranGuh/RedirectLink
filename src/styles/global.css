@@ -1,0 +1,779 @@
+/* ==========================================================================
+   Global stylesheet — consolidated from the former per-component CSS files.
+   Shared by both Astro components and the Svelte modal island so the trigger
+   button and the rest of the link buttons render identically.
+   ========================================================================== */
+
+:root {
+  /* FIX: was 100vw, which adds the scrollbar width and causes a phantom
+     horizontal scrollbar. 100% respects the available content width. */
+  width: 100%;
+  height: auto;
+  scroll-padding-right: 20px;
+  scrollbar-color: rgba(0, 255, 136, 0.247) #222;
+  scrollbar-width: thin;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* ---- App layout (from App.css) ---------------------------------------- */
+
+.app-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background__content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.background__content img {
+  flex: 1 0 20%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.main__content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
+  margin: 0;
+  width: 300px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  padding-bottom: 15px;
+}
+
+/* ---- Background image (from ImgContainer.css) ------------------------- */
+
+.ImgContainer {
+  width: 300px;
+  height: 500px;
+  filter: brightness(0.5) contrast(100%) hue-rotate(90deg);
+  transition: filter 0.5s ease-in;
+}
+
+.ImgContainer:hover {
+  filter: none;
+}
+
+/* ---- Nav / projects gallery (from NavLink.css) ------------------------ */
+
+.Nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Modern project gallery: each card is the whole link, image fills, label
+   sits over a bottom gradient scrim. Replaces the old text-over-image look. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.project-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d0d0d;
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 255, 136, 0.55);
+}
+
+.project-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.78);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.project-card:hover .project-card__img {
+  transform: scale(1.05);
+  filter: brightness(0.95);
+}
+
+.project-card__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0));
+}
+
+.project-card__icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #00ff88;
+}
+
+/* ---- Link buttons (from LinkButtom.css — renamed to LinkButton) ------- */
+
+.LinkButton {
+  position: relative;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: transform 250ms ease-in-out;
+  color: white;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+/* Animated rainbow layer */
+.LinkButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #ff0000fd,
+    #ff9900,
+    #ffff00,
+    #33ff00,
+    #00ffff,
+    #3300ff,
+    #ff00ff,
+    #ff0000
+  );
+  background-size: 200% 100%;
+  animation: rgbAlive 6s linear infinite alternate;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.LinkButton:hover::before {
+  opacity: 1;
+  border-radius: 3px;
+}
+
+.LinkButton:hover {
+  transform: scale(1.05);
+  color: #fff;
+  border-radius: 3px;
+}
+
+/* Keep content above the rainbow layer */
+.LinkButton * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rgbAlive {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -100% 0%;
+  }
+}
+
+.LinkButton > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.15rem;
+  text-decoration: none;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
+}
+
+/* Button-based modal trigger styled to match `.LinkButton > a` exactly. */
+.LinkButton__trigger {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.15rem;
+  text-decoration: none;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
+}
+
+.LinkButton__icon {
+  /* Pin a fixed size so both icon sources render identically regardless of
+     source (astro-icon's 1em vs @lucide/svelte's 24px) — CSS width/height wins. */
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-right: 6px;
+}
+
+/* ---- Profile (from Profile.css) --------------------------------------- */
+
+.Profile {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-top: 10%;
+  width: 200px;
+}
+
+.Profile > img {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 3rem;
+}
+
+/* Highlighted phrases inside the profile description. The original React
+   code referenced `.highlight` but never defined it; defined here. */
+.highlight {
+  font-weight: 700;
+}
+
+/* ---- Modal (from Modal.css) ------------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: modalFade 0.2s ease;
+}
+
+/* Transparent full-bleed button behind the dialog; closes on click. */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  z-index: 0;
+}
+
+.modal-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 960px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0e0e10;
+  color: #e8e8ea;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  text-align: left;
+  animation: modalRise 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+}
+
+#modal-title {
+  margin: 0;
+  padding-right: 36px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.modal-content p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #b9b9c0;
+}
+
+.modal-content p b {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Link from the short modal bio to the full /history story page. */
+.modal-history-link {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #00ff88;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.modal-history-link:hover,
+.modal-history-link:focus-visible {
+  border-color: #00ff88;
+}
+
+.modal-section-title {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-section-title::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin-top: 6px;
+  background: #00ff88;
+}
+
+.modal-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: rotate(90deg);
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Responsive ------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .background__content {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ====================================================================== */
+/* ====  /history — long-form story page  =============================== */
+/* ====================================================================== */
+/* Matches the Modal aesthetic: bg #0e0e10, accent #00ff88,               */
+/* text #e8e8ea / #b9b9c0, NO border-radius, subtle 1px borders,          */
+/* Space Grotesk.                                                         */
+
+.history {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(120% 55% at 50% -8%, rgba(0, 255, 136, 0.1), transparent 60%),
+    #0a0a0b;
+  color: #e8e8ea;
+  font-family: "Space Grotesk", sans-serif;
+  padding: 48px 20px 120px;
+  box-sizing: border-box;
+}
+
+.history__column {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.history__back {
+  display: inline-block;
+  margin-bottom: 56px;
+  font-size: 0.95rem;
+  color: #b9b9c0;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.history__back:hover,
+.history__back:focus-visible {
+  color: #00ff88;
+  border-color: #00ff88;
+}
+
+/* ---- Hero ------------------------------------------------------------- */
+
+.history__hero {
+  margin-bottom: 88px;
+}
+
+.history__eyebrow {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #00ff88;
+}
+
+.history__title {
+  margin: 0 0 20px;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.history__lede {
+  margin: 0;
+  max-width: 56ch;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #b9b9c0;
+}
+
+/* ---- Scenes / narrative ---------------------------------------------- */
+
+.history__scene {
+  position: relative;
+  margin-bottom: 88px;
+}
+
+.history__scene-num {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(0, 255, 136, 0.55);
+}
+
+.history__prose p {
+  margin: 0 0 20px;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: #b9b9c0;
+}
+
+.history__prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Typewriter heading island --------------------------------------- */
+
+.tw-heading {
+  margin-bottom: 28px;
+}
+
+.tw-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00ff88;
+}
+
+.tw-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #fff;
+  /* Reserve a stable baseline so the line doesn't jump as it types. */
+  min-height: 1.2em;
+}
+
+.tw-caret {
+  display: inline-block;
+  width: 0.6ch;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: #00ff88;
+  animation: twBlink 1s steps(1) infinite;
+}
+
+@keyframes twBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tw-caret {
+    display: none;
+  }
+}
+
+/* ---- Projects intro --------------------------------------------------- */
+
+.history__projects {
+  margin-bottom: 80px;
+}
+
+.history__projects-desc {
+  margin: 0 0 40px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #b9b9c0;
+}
+
+/* ---- Project cards (real projects, image-forward) -------------------- */
+
+.history__projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.proj {
+  display: flex;
+  flex-direction: column;
+  background: #131316;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.proj:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+.proj__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.proj__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.proj:hover .proj__media img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.proj__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+}
+
+.proj__role {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00ff88;
+}
+
+.proj__title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.proj__desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #b9b9c0;
+}
+
+.proj__stack {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.proj__chip {
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  color: #b9b9c0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.proj__link {
+  margin-top: auto;
+  padding-top: 8px;
+  align-self: flex-start;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #00ff88;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.proj__link:hover,
+.proj__link:focus-visible {
+  border-color: #00ff88;
+}
+
+/* ---- Closing CTA ------------------------------------------------------ */
+
+.history__cta {
+  margin-top: 16px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.history__cta-text {
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+  color: #e8e8ea;
+}
+
+.history__cta-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.history__cta-link {
+  display: inline-block;
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  color: #e8e8ea;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.history__cta-link:hover,
+.history__cta-link:focus-visible {
+  color: #00ff88;
+  border-color: #00ff88;
+}
+
+.history__cta-link--primary {
+  color: #0e0e10;
+  background: #00ff88;
+  border-color: #00ff88;
+}
+
+.history__cta-link--primary:hover,
+.history__cta-link--primary:focus-visible {
+  color: #0e0e10;
+  background: #00cc6e;
+  border-color: #00cc6e;
+}
+
+/* ---- /history responsive --------------------------------------------- */
+
+@media (max-width: 720px) {
+  .history__projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .history {
+    padding: 32px 18px 80px;
+  }
+
+  .history__back {
+    margin-bottom: 40px;
+  }
+
+  .history__hero {
+    margin-bottom: 64px;
+  }
+
+  .history__scene {
+    margin-bottom: 60px;
+  }
+
+  .proj__body {
+    padding: 18px;
+  }
+}
