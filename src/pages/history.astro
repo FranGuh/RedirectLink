@@ -1,0 +1,184 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TypewriterHeading from '../components/TypewriterHeading.svelte';
+
+// Narrative scenes ported from `journeyContent.ts` (ES only for v1).
+const scenes = [
+  {
+    eyebrow: 'El Origen',
+    title: 'El mejor y peor día de mi vida comenzó aquí',
+    paragraphs: [
+      'Con 24 años, a una semana de recibir mi título de Ingeniero en Sistemas Computacionales, me encontré en un callejón sin salida. Las ofertas del mercado tradicional estaban rotas: salarios de miseria de menos de 8,000 pesos mensuales, procesos de reclutamiento ciegos dirigidos por filtros automatizados y el fantasma del estancamiento profesional. Vi a muchos compañeros de facultad rendirse ante la frustración y refugiarse en los videojuegos.',
+      'Fue el peor día porque el estrés financiero y la incertidumbre eran asfixiantes. Sabía que no podía competir en el mercado de mano de obra barata y repetitiva. Pero también fue el mejor día porque tomé una decisión de hierro. Desinstalé de raíz League of Legends (donde había invertido incontables horas para llegar a rango Esmeralda) y decidí que toda esa disciplina mental, capacidad de foco y resiliencia se canalizarían en construir mi propio destino.',
+      'Invertí mis últimos 5 dólares en perfeccionar mis fundamentos de desarrollo web con cursos avanzados y en registrar webinars de metodologías avanzadas de automatización con agentes. Entendí que copiar y pegar código generado por chats sin entender el motor V8 de Google, la persistencia segura con SQLCipher o las integraciones CUDA en GPU local de 12GB era una trampa. En ese instante dejé de ser un programador reactivo y empecé a pensar como un Arquitecto de Sistemas.',
+    ],
+  },
+  {
+    eyebrow: 'La Filosofía',
+    title: 'La dirección lógica por encima de la escritura manual de código',
+    paragraphs: [
+      'La irrupción de la inteligencia artificial de frontera no destruyó mi carrera; la potenció. Comprendí rápidamente una regla de negocio fundamental: escribir sintaxis se volvió barato, pero diseñar arquitectura y resolver la distribución lo es todo. La ingeniería moderna ya no consiste en escribir líneas de código de forma manual e ineficiente, sino en dirigir la lógica abstracta.',
+      'Adopté el desarrollo dirigido por especificaciones (Spec-Driven Development o SDD) y la documentación de decisiones arquitectónicas (ADRs). Dejé de programar por intuición ciega para pasar a modelar sistemas híbridos locales y de nube. En lugar de gastar miles de dólares en suscripciones cerradas, integré herramientas de orquestación agéntica como Codex, Antigravity y la base de conocimiento vectorial Engram, operando bajo chasis local-first.',
+      'Esta forma de trabajo me permite actuar como el director de un equipo técnico integrado en mi propia computadora. Investigo, diseño la estrategia, audito los planes de testing y controlo los tradeoffs de cada decisión — y entrego software seguro, tipado y validado a una velocidad que como desarrollador individual no habría imaginado.',
+    ],
+  },
+];
+
+// Real projects I built end-to-end. Tools (Ollama, Whisper, SDXL, SQLCipher)
+// are framed as TOOLS I use — not as things I created. Honest > inflated.
+const projects = [
+  {
+    name: 'OpenCohost',
+    role: 'Co-host de voz con IA',
+    image: '/images/history/opencohost.webp',
+    description:
+      'Construí un co-host de voz con IA para streamers: ingiere el chat de Twitch/YouTube en tiempo real, genera respuestas con LLMs locales y sintetiza la voz al vuelo. Local-first y determinístico.',
+    stack: ['Python', 'Ollama', 'QwenTTS', 'Edge-TTS', 'Flask'],
+    href: 'https://opencohost.com',
+  },
+  {
+    name: 'LiveAudio',
+    role: 'Subtitulado en tiempo real',
+    image: '/images/history/liveaudio.webp',
+    description:
+      'Sistema de subtítulos en vivo para streamers: detección de voz continua con Silero VAD, transcripción con Whisper local e integración directa en OBS. Empaquetado portable con Nuitka.',
+    stack: ['Python', 'Whisper', 'Silero VAD', 'OBS', 'Nuitka'],
+    href: 'https://github.com/plynte-labs/liveaudio',
+  },
+  {
+    name: 'Brick.draw',
+    role: 'App de escritorio de dibujo',
+    image: '/images/history/brickdraw.webp',
+    description:
+      'App de escritorio de dibujo por capas (estilo Paint/Photoshop) construida en Tauri + Rust. Se comunica con Sloppy para mejorar los dibujos con Stable Diffusion XL local.',
+    stack: ['Tauri', 'Rust', 'React', 'TypeScript', 'Zustand'],
+    href: 'https://github.com/plynte-labs/brick-draw',
+  },
+  {
+    name: 'Sloppy',
+    role: 'API de visión artificial',
+    image: '/images/history/sloppy.webp',
+    description:
+      'API de visión artificial que genera y mejora imágenes con Stable Diffusion XL por inferencia local. Es el motor de IA detrás de Brick.draw.',
+    stack: ['Python', 'SDXL', 'PyTorch', 'FastAPI', 'CUDA'],
+    href: '',
+  },
+  {
+    name: 'RememberCompanion',
+    role: 'Diario local-first en Android',
+    image: '/images/history/remembercompanion.webp',
+    description:
+      'App Android de diario de productividad, local-first, con la base de datos cifrada (SQLCipher) para privacidad máxima. Registra pensamientos, acciones y satisfacción diaria.',
+    stack: ['React Native', 'TypeScript', 'SQLite', 'SQLCipher'],
+    href: '',
+  },
+];
+---
+
+<Layout
+  title="Mi Historia | Gustavo Francisco"
+  description="El punto de inflexión: del código improvisado al diseño de sistemas y la automatización agéntica. La historia de Gustavo Francisco, Software Engineer powered by AI."
+>
+  <main class="history">
+    <div class="history__column">
+      <a class="history__back" href="/">← Volver</a>
+
+      <header class="history__hero">
+        <span class="history__eyebrow">Mi Historia</span>
+        <h1 class="history__title">El Punto de Inflexión</h1>
+        <p class="history__lede">
+          La transición real del código improvisado al diseño de sistemas y la
+          automatización agéntica.
+        </p>
+      </header>
+
+      {
+        scenes.map((scene, i) => (
+          <section class="history__scene">
+            <span class="history__scene-num">{String(i + 1).padStart(2, '0')}</span>
+            <TypewriterHeading
+              client:visible
+              eyebrow={scene.eyebrow}
+              text={scene.title}
+              as="h2"
+            />
+            <div class="history__prose">
+              {scene.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section class="history__projects" aria-labelledby="projects-title">
+        <TypewriterHeading
+          client:visible
+          id="projects-title"
+          eyebrow="Lo que construí"
+          text="Proyectos, no promesas"
+          as="h2"
+        />
+        <p class="history__projects-desc">
+          Sistemas que diseñé y construí de punta a punta. Uso herramientas como
+          Ollama, Whisper o Stable Diffusion — pero la arquitectura que las
+          orquesta es mía.
+        </p>
+
+        <div class="history__projects-grid">
+          {
+            projects.map((project) => (
+              <article class="proj">
+                <div class="proj__media">
+                  <img
+                    src={project.image}
+                    alt={`Captura de ${project.name}`}
+                    loading="lazy"
+                  />
+                </div>
+                <div class="proj__body">
+                  <span class="proj__role">{project.role}</span>
+                  <h3 class="proj__title">{project.name}</h3>
+                  <p class="proj__desc">{project.description}</p>
+                  <ul class="proj__stack">
+                    {project.stack.map((tech) => (
+                      <li class="proj__chip">{tech}</li>
+                    ))}
+                  </ul>
+                  {project.href && (
+                    <a
+                      class="proj__link"
+                      href={project.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ver proyecto →
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <footer class="history__cta">
+        <p class="history__cta-text">
+          De código improvisado a dirigir un laboratorio de IA. Y esto recién
+          empieza.
+        </p>
+        <div class="history__cta-links">
+          <a
+            class="history__cta-link history__cta-link--primary"
+            href="https://plynte.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Conocé plynte-labs →
+          </a>
+          <a class="history__cta-link" href="/">← Volver a los enlaces</a>
+        </div>
+      </footer>
+    </div>
+  </main>
+</Layout>
