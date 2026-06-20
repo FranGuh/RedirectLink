@@ -2,9 +2,13 @@
 import Profile from './Profile.astro';
 import LinkButton from './LinkButton.astro';
 import Modal from './Modal.svelte';
-import linksData from '../data/links.json';
 
-const { profile, about, projects, links } = linksData;
+interface Props {
+  content: any;
+}
+
+const { content } = Astro.props;
+const { profile, about, projects, links, modalLabels } = content;
 
 // Resolve the modal trigger by its action, not by array index. The old code
 // relied on `links[0]` being the modal — that positional coupling is one of
@@ -30,6 +34,8 @@ const plainLinks = links.filter((l) => l.action !== 'openModal');
         triggerIcon={modalLink.icon}
         about={about}
         projects={projects}
+        labels={modalLabels}
+        historyHref={plainLinks.find((l) => l.href.includes('history'))?.href ?? '/history'}
       />
     )
   }

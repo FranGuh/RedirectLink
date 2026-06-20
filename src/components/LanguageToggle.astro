@@ -1,0 +1,26 @@
+---
+interface Props {
+  links: { locale: string; href: string; label: string; shortLabel: string; current: boolean }[];
+  label: string;
+}
+
+const { links, label } = Astro.props;
+---
+
+<nav class="language-toggle" aria-label={label}>
+  {
+    links.map((link) => (
+      <a
+        class:list={['language-toggle__link', { 'language-toggle__link--current': link.current }]}
+        href={link.href}
+        hreflang={link.locale}
+        lang={link.locale}
+        data-language-choice={link.locale}
+        aria-current={link.current ? 'page' : undefined}
+        aria-label={link.label}
+      >
+        {link.shortLabel}
+      </a>
+    ))
+  }
+</nav>

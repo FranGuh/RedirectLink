@@ -5,26 +5,40 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  lang?: string;
+  canonicalPath?: string;
+  alternates?: { lang: string; href: string }[];
+  keywords?: string;
+  ogImage?: string;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  lang = 'es',
+  canonicalPath = Astro.url.pathname,
+  alternates = [],
+  keywords = 'Gustavo Francisco, desarrollador web, React, portfolio, programador',
+  ogImage: ogImagePath = '/images/user/Profilepic.png',
+} = Astro.props;
 
 // FIX: og:image / twitter:image must be ABSOLUTE URLs, not site-relative paths.
-const ogImage = new URL('/images/user/Profilepic.png', Astro.site).href;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(ogImagePath, Astro.site).href;
+const canonical = new URL(canonicalPath, Astro.site).href;
+const alternateLinks = alternates.map((alternate) => ({
+  lang: alternate.lang,
+  href: new URL(alternate.href, Astro.site).href,
+}));
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/Franguh.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="Gustavo Francisco, desarrollador web, React, portfolio, programador"
-    />
+    <meta name="keywords" content={keywords} />
     <meta name="author" content="Gustavo Francisco" />
     <meta name="robots" content="index, follow" />
 
@@ -40,6 +54,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="canonical" href={canonical} />
+    {
+      alternateLinks.map((alternate) => (
+        <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />
+      ))
+    }
+    {
+      alternateLinks[0] && (
+        <link rel="alternate" hreflang="x-default" href={alternateLinks[0].href} />
+      )
+    }
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,6 +80,76 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   </head>
   <body>
     <slot />
+    <script is:inline>
+      (() => {
+        const preferenceKey = 'redirectlink:language';
+
+        function getStoredPreference() {
+          try {
+            return { available: true, value: window.localStorage.getItem(preferenceKey) };
+          } catch {
+            return { available: false, value: null };
+          }
+        }
+
+        function setStoredPreference(locale) {
+          try {
+            window.localStorage.setItem(preferenceKey, locale);
+          } catch {
+            // Storage can be blocked in private or hardened browsing modes.
+          }
+        }
+
+        document.addEventListener('click', (event) => {
+          const target = event.target;
+
+          if (!(target instanceof Element)) {
+            return;
+          }
+
+          const link = target.closest('[data-language-choice]');
+
+          if (!link) {
+            return;
+          }
+
+          const locale = link.getAttribute('data-language-choice');
+
+          if (locale === 'es' || locale === 'en') {
+            setStoredPreference(locale);
+          }
+        });
+
+        const storedPreference = getStoredPreference();
+
+        if (!storedPreference.available || storedPreference.value) {
+          return;
+        }
+
+        const preferredLanguage = (
+          Array.isArray(navigator.languages) && navigator.languages[0]
+            ? navigator.languages[0]
+            : navigator.language || ''
+        ).toLowerCase();
+
+        if (!preferredLanguage.startsWith('en')) {
+          return;
+        }
+
+        const path = window.location.pathname.replace(/\/$/, '') || '/';
+        const englishRoutes = {
+          '/': '/en',
+          '/history': '/en/history',
+        };
+        const targetPath = englishRoutes[path];
+
+        if (!targetPath || path === targetPath) {
+          return;
+        }
+
+        window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+      })();
+    </script>
     <Analytics />
   </body>
 </html>

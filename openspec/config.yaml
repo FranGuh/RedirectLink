@@ -1,0 +1,88 @@
+schema: spec-driven
+project: redirectlink
+persistence:
+  mode: openspec
+  initialized_at: 2026-06-19
+
+context: |
+  Stack: Astro 6 static site with Svelte 5 island components and Vercel Analytics.
+  Package manager: pnpm; build output is static dist/.
+  Architecture: flat frontend structure under src/ with pages, layouts, components, styles, data, and utils.
+  Content source: src/data/links.json drives profile, links, about text, and projects.
+  Deployment: Vercel static deployment with security and cache headers in vercel.json.
+  Quality: no test runner, linter, formatter, typecheck, or CI config detected in the current repo files.
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  strict_tdd_reason: "No test runner or strict TDD marker/config was detected."
+  detected_at: 2026-06-19
+  package_manager: pnpm
+  commands:
+    dev: "pnpm dev"
+    build: "pnpm build"
+    preview: "pnpm preview"
+    test: ""
+    lint: ""
+    typecheck: ""
+    format: ""
+    coverage: ""
+  capabilities:
+    - layer: Unit
+      available: false
+      tool: ""
+      command: ""
+    - layer: Integration
+      available: false
+      tool: ""
+      command: ""
+    - layer: E2E
+      available: false
+      tool: ""
+      command: ""
+  coverage:
+    available: false
+    command: ""
+  quality:
+    linter:
+      available: false
+      command: ""
+    type_checker:
+      available: false
+      command: ""
+    formatter:
+      available: false
+      command: ""
+  verified_commands:
+    build: "pnpm build"
+
+rules:
+  proposal:
+    - Include user-visible impact, rollback plan, and deployment considerations for changes that affect routing, SEO, analytics, or Vercel headers.
+  specs:
+    - Use RFC 2119 keywords for requirements.
+    - Use Given/When/Then scenarios for observable behavior.
+    - Keep generated technical artifacts in English unless explicitly requested otherwise.
+  design:
+    - Preserve the static-first Astro architecture; introduce client-side islands only when interactivity requires them.
+    - Document accessibility, SEO, performance, and security-header implications for UI or routing changes.
+  tasks:
+    - Keep implementation tasks reviewable within the configured 400-line review budget when possible.
+    - Pair production changes with the best available verification command; currently build verification is available, automated tests are not.
+  apply:
+    tdd: false
+    test_command: ""
+    build_command: "pnpm build"
+    instructions:
+      - Follow existing Astro/Svelte component and data-file patterns.
+      - Do not add backend, authentication, or complex state management unless a later spec explicitly changes project scope.
+  verify:
+    test_command: ""
+    build_command: "pnpm build"
+    coverage_threshold: 0
+    instructions:
+      - Run `pnpm build` for verification until a test runner is added.
+  archive:
+    - Preserve completed changes under openspec/changes/archive/YYYY-MM-DD-{change-name}/.
+    - Warn before merging destructive spec deltas into main specs.

@@ -1,10 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HistoryPage from '../components/HistoryPage.astro';
-import { historyContent } from '../data/i18n/history.js';
-import { getAlternates } from '../data/i18n/locales.js';
+import Layout from '../../layouts/Layout.astro';
+import HistoryPage from '../../components/HistoryPage.astro';
+import { historyContent } from '../../data/i18n/history.js';
+import { getAlternates } from '../../data/i18n/locales.js';
 
-const locale = 'es';
+const locale = 'en';
 const content = historyContent[locale];
 ---
 
@@ -13,7 +13,7 @@ const content = historyContent[locale];
   description={content.metadata.description}
   keywords={content.metadata.keywords}
   lang={locale}
-  canonicalPath="/history"
+  canonicalPath="/en/history"
   alternates={getAlternates('history')}
 >
   <HistoryPage locale={locale} content={content} />

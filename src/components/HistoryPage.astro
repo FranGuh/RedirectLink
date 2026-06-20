@@ -1,0 +1,112 @@
+---
+import LanguageToggle from './LanguageToggle.astro';
+import TypewriterHeading from './TypewriterHeading.svelte';
+import { getLocaleSwitchLinks, routes } from '../data/i18n/locales.js';
+
+interface Props {
+  locale: 'es' | 'en';
+  content: any;
+}
+
+const { locale, content } = Astro.props;
+const homeHref = routes.home[locale];
+---
+
+<main class="history">
+  <div class="history__column">
+    <div class="history__topbar">
+      <a class="history__back" href={homeHref}>{content.labels.back}</a>
+      <LanguageToggle
+        links={getLocaleSwitchLinks('history', locale)}
+        label={content.labels.toggleLabel}
+      />
+    </div>
+
+    <header class="history__hero">
+      <span class="history__eyebrow">{content.labels.eyebrow}</span>
+      <h1 class="history__title">{content.hero.title}</h1>
+      <p class="history__lede">{content.hero.lede}</p>
+    </header>
+
+    {
+      content.scenes.map((scene, i) => (
+        <section class="history__scene">
+          <span class="history__scene-num">{String(i + 1).padStart(2, '0')}</span>
+          <TypewriterHeading
+            client:visible
+            eyebrow={scene.eyebrow}
+            text={scene.title}
+            as="h2"
+          />
+          <div class="history__prose">
+            {scene.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <section class="history__projects" aria-labelledby="projects-title">
+      <TypewriterHeading
+        client:visible
+        id="projects-title"
+        eyebrow={content.labels.projectsEyebrow}
+        text={content.labels.projectsTitle}
+        as="h2"
+      />
+      <p class="history__projects-desc">{content.projectsDescription}</p>
+
+      <div class="history__projects-grid">
+        {
+          content.projects.map((project) => (
+            <article class="proj">
+              <div class="proj__media">
+                <img
+                  src={project.image}
+                  alt={`${content.labels.projectImageAlt} ${project.name}`}
+                  loading="lazy"
+                />
+              </div>
+              <div class="proj__body">
+                <span class="proj__role">{project.role}</span>
+                <h3 class="proj__title">{project.name}</h3>
+                <p class="proj__desc">{project.description}</p>
+                <ul class="proj__stack">
+                  {project.stack.map((tech) => (
+                    <li class="proj__chip">{tech}</li>
+                  ))}
+                </ul>
+                {project.href && (
+                  <a
+                    class="proj__link"
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {content.labels.projectLink}
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <footer class="history__cta">
+      <p class="history__cta-text">{content.ctaText}</p>
+      <div class="history__cta-links">
+        <a
+          class="history__cta-link history__cta-link--primary"
+          href="https://plynte.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {content.labels.primaryCta}
+        </a>
+        <a class="history__cta-link" href={homeHref}>{content.labels.secondaryCta}</a>
+      </div>
+    </footer>
+  </div>
+</main>
