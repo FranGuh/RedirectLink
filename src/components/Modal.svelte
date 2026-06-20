@@ -16,7 +16,7 @@
     'lucide:audio-lines': AudioLines,
   };
 
-  let { triggerText, triggerIcon, about, projects } = $props();
+  let { triggerText, triggerIcon, about, projects, labels, historyHref } = $props();
 
   let isOpen = $state(false);
   let container = $state(null);
@@ -85,11 +85,11 @@
          warning and no svelte-ignore needed. Sits behind the dialog; clicking
          the dimmed area closes. tabindex=-1 keeps it out of the tab order
          (Escape and the ✕ button already cover keyboard close). -->
-    <button
+      <button
       type="button"
       class="modal-backdrop"
       tabindex="-1"
-      aria-label="Cerrar modal"
+      aria-label={labels.close}
       onclick={close}
     ></button>
     <div
@@ -101,7 +101,7 @@
       aria-labelledby="modal-title"
     >
       <div class="modal-content">
-        <button class="modal-btn" onclick={close} aria-label="Cerrar modal">
+        <button class="modal-btn" onclick={close} aria-label={labels.close}>
           ✕
         </button>
 
@@ -109,16 +109,16 @@
 
         {#each about.paragraphs as p}
           <!-- Trusted local content: `about.paragraphs` is a build-time
-               constant from links.json containing only hand-authored <b>
+               constant from i18n dictionaries containing only hand-authored <b>
                markup, so {@html} is safe here (no user input). -->
           <p>{@html p}</p>
         {/each}
 
-        <a class="modal-history-link" href="/history">
-          Leer mi historia completa →
+        <a class="modal-history-link" href={historyHref}>
+          {labels.historyLink}
         </a>
 
-        <h3 class="modal-section-title">Proyectos</h3>
+        <h3 class="modal-section-title">{labels.projectsTitle}</h3>
         <div class="project-grid">
           {#each projects as project}
             <!-- href||undefined: an empty href would open a duplicate tab.

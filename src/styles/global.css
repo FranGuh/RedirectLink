@@ -79,6 +79,40 @@
   gap: 10px;
 }
 
+/* ---- Locale switch ----------------------------------------------------- */
+
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 14px 0 8px;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.language-toggle__link {
+  min-width: 38px;
+  padding: 6px 9px;
+  color: #0e0e10;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.language-toggle__link:hover,
+.language-toggle__link:focus-visible,
+.language-toggle__link--current {
+  color: #0e0e10;
+  background: #00ff88;
+  border-color: #00cc6e;
+}
+
 /* Modern project gallery: each card is the whole link, image fills, label
    sits over a bottom gradient scrim. Replaces the old text-over-image look. */
 .project-grid {
@@ -465,6 +499,35 @@
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
+.history__topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.history__topbar .history__back {
+  margin-bottom: 0;
+}
+
+.history__topbar .language-toggle {
+  flex-shrink: 0;
+  margin: 0;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: #131316;
+}
+
+.history__topbar .language-toggle__link {
+  color: #e8e8ea;
+}
+
+.history__topbar .language-toggle__link:hover,
+.history__topbar .language-toggle__link:focus-visible,
+.history__topbar .language-toggle__link--current {
+  color: #0e0e10;
+}
+
 .history__back:hover,
 .history__back:focus-visible {
   color: #00ff88;
@@ -762,6 +825,10 @@
   }
 
   .history__back {
+    margin-bottom: 40px;
+  }
+
+  .history__topbar {
     margin-bottom: 40px;
   }
 

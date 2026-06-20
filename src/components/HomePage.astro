@@ -1,0 +1,27 @@
+---
+import ImgContainer from './ImgContainer.astro';
+import LanguageToggle from './LanguageToggle.astro';
+import NavLink from './NavLink.astro';
+import { getLocaleSwitchLinks } from '../data/i18n/locales.js';
+
+interface Props {
+  locale: string;
+  content: any;
+}
+
+const { locale, content } = Astro.props;
+---
+
+<div class="app-root">
+  <section class="background__content">
+    <ImgContainer src={content.background.src} alt={content.background.alt} />
+  </section>
+
+  <main class="main__content">
+    <LanguageToggle
+      links={getLocaleSwitchLinks('home', locale)}
+      label={content.toggleLabel}
+    />
+    <NavLink content={content} />
+  </main>
+</div>
