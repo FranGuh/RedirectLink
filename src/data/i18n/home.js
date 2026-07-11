@@ -7,7 +7,7 @@ export const homeContent = {
       keywords: 'Gustavo Francisco, desarrollador web, React, portfolio, programador',
     },
     background: {
-      src: '/images/user/fondo2.jpg',
+      src: '/images/user/fondo_codex.webp',
       alt: 'Fondo decorativo de perfil de Gustavo Francisco',
     },
     profile: {
@@ -51,7 +51,7 @@ export const homeContent = {
       keywords: 'Gustavo Francisco, software engineer, React, AI, portfolio, developer',
     },
     background: {
-      src: '/images/user/fondo2.jpg',
+      src: '/images/user/fondo_codex.webp',
       alt: 'Decorative profile background for Gustavo Francisco',
     },
     profile: {
